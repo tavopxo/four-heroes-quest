@@ -33,7 +33,16 @@ func _ready() -> void:
 	if camera and player:
 		camera.position_smoothing_enabled = true
 		camera.position_smoothing_speed = 8.0
+	_trim_collectibles_for_grounded_layout()
 	_spawn_level_content()
+
+func _trim_collectibles_for_grounded_layout() -> void:
+	if not game_manager:
+		return
+	for child in get_children():
+		if child is Fruit and child.global_position.y <= 110.0:
+			child.queue_free()
+			game_manager.total_fruits_in_level = maxi(0, game_manager.total_fruits_in_level - 1)
 
 func _spawn_level_content() -> void:
 	var enemy_scene = preload("res://scenes/characters/enemy.tscn")

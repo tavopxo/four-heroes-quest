@@ -15,6 +15,14 @@ func _process(_delta: float) -> void:
 		player.fire_bullet(aim_direction, global_position)
 
 func _draw() -> void:
-	draw_rect(Rect2(0, -3, 15, 6), Color("#6b4937"))
-	draw_rect(Rect2(10, -2, 9, 4), Color("#d6dce4"))
-	draw_circle(Vector2(2, 0), 4, Color("#293241"))
+	# Readable side-view pistol silhouette: receiver, barrel, trigger guard,
+	# and an angled grip rather than a single sword-like line.
+	draw_rect(Rect2(-2, -5, 12, 10), Color("#303746"))
+	draw_rect(Rect2(8, -3, 13, 6), Color("#8b95a5"))
+	draw_rect(Rect2(18, -2, 5, 4), Color("#d8e0e8"))
+	draw_polygon(
+		PackedVector2Array([Vector2(1, 4), Vector2(8, 4), Vector2(5, 17), Vector2(-2, 14)]),
+		PackedColorArray([Color("#6b4937")])
+	)
+	draw_arc(Vector2(3, 7), 5, 0.1, 2.5, 8, Color("#1f2630"), 2.0)
+	draw_circle(Vector2(21, 0), 2, Color("#ffe38a"))

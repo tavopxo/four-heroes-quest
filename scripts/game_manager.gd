@@ -172,6 +172,7 @@ func apply_selected_hero() -> void:
 
 func start_level(level_idx: int) -> void:
 	is_endless_mode = false
+	get_tree().paused = false
 	current_level_index = level_idx
 	fruits_collected = 0
 	total_fruits_in_level = 0

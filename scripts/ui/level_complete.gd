@@ -92,9 +92,9 @@ func _on_next_pressed() -> void:
 	if game_manager:
 		var nxt = game_manager.current_level_index + 1
 		if nxt <= 4:
-			game_manager.start_level(nxt)
+			game_manager.call_deferred("start_level", nxt)
 		else:
-			get_tree().change_scene_to_file("res://scenes/ui/level_select.tscn")
+			get_tree().call_deferred("change_scene_to_file", "res://scenes/ui/level_select.tscn")
 
 func _on_retry_pressed() -> void:
 	if _is_transitioning:
@@ -106,7 +106,7 @@ func _on_retry_pressed() -> void:
 		audio_manager.play_sfx("click")
 	get_tree().paused = false
 	if game_manager:
-		game_manager.start_level(game_manager.current_level_index)
+		game_manager.call_deferred("start_level", game_manager.current_level_index)
 
 func _on_menu_pressed() -> void:
 	if _is_transitioning:
@@ -117,4 +117,4 @@ func _on_menu_pressed() -> void:
 	if audio_manager:
 		audio_manager.play_sfx("click")
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://scenes/ui/level_select.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/ui/level_select.tscn")
