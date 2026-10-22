@@ -82,3 +82,18 @@ Open the project directly in **Godot 4.7** or execute from the terminal:
 # Launch the game
 /Applications/Godot.app/Contents/MacOS/Godot --path .
 ```
+
+## 🤖 Working with coding agents
+
+The repository includes a tool-agnostic context layer for GitHub Copilot, VS Code Copilot, Antigravity, and other coding agents:
+
+- [`AGENTS.md`](AGENTS.md) — concise project rules, validation, and handoff format.
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — runtime flow, responsibilities, signals, and conventions.
+- [`docs/GAMEPLAY_CONTRACT.md`](docs/GAMEPLAY_CONTRACT.md) — behaviors and save compatibility that must remain stable.
+- [`docs/TASK_TEMPLATE.md`](docs/TASK_TEMPLATE.md) — reusable task brief for switching agents or chats.
+
+Run the shared validation command before handing work to another agent:
+
+```bash
+./tools/validate.sh
+```
