@@ -1,0 +1,59 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="1_6tw0m"]
+
+[node name="PauseMenu" type="Control" unique_id=906809192]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_6tw0m")
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=476269933]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.65)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1621615330]
+custom_minimum_size = Vector2(240, 200)
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 200.0
+offset_top = 80.0
+offset_right = 200.0
+offset_bottom = 80.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=878691006]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="@Label@2" type="Label" parent="PanelContainer/VBoxContainer" unique_id=643026392]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeBtn" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1848979102]
+layout_mode = 2
+text = "Resume"
+
+[node name="RestartBtn" type="Button" parent="PanelContainer/VBoxContainer" unique_id=521228728]
+layout_mode = 2
+text = "Restart Level"
+
+[node name="SelectHeroBtn" type="Button" parent="PanelContainer/VBoxContainer" unique_id=571902461]
+layout_mode = 2
+text = "Switch Hero"
+
+[node name="LevelSelectBtn" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1438129736]
+layout_mode = 2
+text = "Level Select"
+
+[node name="MainMenuBtn" type="Button" parent="PanelContainer/VBoxContainer" unique_id=83023416]
+layout_mode = 2
+text = "Main Menu"

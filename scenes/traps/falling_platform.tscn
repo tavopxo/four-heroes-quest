@@ -1,0 +1,27 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/traps/falling_platform.gd" id="1_d83sg"]
+[ext_resource type="SpriteFrames" path="res://resources/falling_platform_frames.tres" id="2_hx7m0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4xjtb"]
+size = Vector2(32, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4j5i"]
+size = Vector2(30, 4)
+
+[node name="FallingPlatform" type="StaticBody2D" unique_id=1140841901]
+script = ExtResource("1_d83sg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1512444687]
+sprite_frames = ExtResource("2_hx7m0")
+animation = &"on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=634732200]
+shape = SubResource("RectangleShape2D_4xjtb")
+
+[node name="StepArea" type="Area2D" parent="." unique_id=767840041]
+collision_layer = 4
+
+[node name="@CollisionShape2D@3" type="CollisionShape2D" parent="StepArea" unique_id=1856374366]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_q4j5i")

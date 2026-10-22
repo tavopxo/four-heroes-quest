@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/traps/saw.gd" id="1_g144k"]
+[ext_resource type="SpriteFrames" path="res://resources/saw_frames.tres" id="2_maawh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hd0mb"]
+radius = 16.0
+
+[node name="Saw" type="Area2D" unique_id=393361246]
+script = ExtResource("1_g144k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1337245704]
+sprite_frames = ExtResource("2_maawh")
+animation = &"on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1082377315]
+shape = SubResource("CircleShape2D_hd0mb")

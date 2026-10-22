@@ -1,0 +1,535 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scripts/levels/base_level.gd" id="1_2e0t0"]
+[ext_resource type="Texture2D" path="res://Background/Brown.png" id="2_keip3"]
+[ext_resource type="TileSet" path="res://resources/terrain_tileset.tres" id="3_exwx8"]
+[ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="4_17aof"]
+[ext_resource type="SpriteFrames" path="res://resources/ninja_frog_frames.tres" id="5_6nfno"]
+[ext_resource type="Texture2D" path="res://Other/Dust Particle.png" id="6_0y23r"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="7_wrgna"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="8_8ghkn"]
+[ext_resource type="Texture2D" path="res://Items/Fruits/Apple.png" id="9_5ar51"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="10_b1k63"]
+[ext_resource type="Script" path="res://scripts/ui/pause_menu.gd" id="11_holbn"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_complete.tscn" id="12_px4x2"]
+[ext_resource type="Script" path="res://scripts/ui/level_complete.gd" id="13_u5lg2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/game_over.tscn" id="14_kt0v5"]
+[ext_resource type="Script" path="res://scripts/ui/game_over.gd" id="15_laosj"]
+[ext_resource type="PackedScene" path="res://scenes/items/checkpoint.tscn" id="16_nsjcl"]
+[ext_resource type="Script" path="res://scripts/items/checkpoint.gd" id="17_xjpyo"]
+[ext_resource type="SpriteFrames" path="res://resources/checkpoint_mid_frames.tres" id="18_lhwnp"]
+[ext_resource type="Texture2D" path="res://Other/Confetti (16x16).png" id="19_852cy"]
+[ext_resource type="PackedScene" path="res://scenes/items/fruit.tscn" id="20_x63fv"]
+[ext_resource type="Script" path="res://scripts/items/fruit.gd" id="21_bnt33"]
+[ext_resource type="SpriteFrames" path="res://resources/fruit_apple_frames.tres" id="22_em1wd"]
+[ext_resource type="PackedScene" path="res://scenes/traps/saw.tscn" id="23_7to3y"]
+[ext_resource type="Script" path="res://scripts/traps/saw.gd" id="24_ywi5j"]
+[ext_resource type="SpriteFrames" path="res://resources/saw_frames.tres" id="25_nqmx1"]
+[ext_resource type="PackedScene" path="res://scenes/items/box.tscn" id="26_i1qex"]
+[ext_resource type="Script" path="res://scripts/items/box.gd" id="27_ircvk"]
+[ext_resource type="SpriteFrames" path="res://resources/box1_frames.tres" id="28_8gy8s"]
+[ext_resource type="PackedScene" path="res://scenes/traps/fan.tscn" id="29_g8c2j"]
+[ext_resource type="Script" path="res://scripts/traps/fan.gd" id="30_mghg3"]
+[ext_resource type="SpriteFrames" path="res://resources/fan_frames.tres" id="31_xlkqr"]
+[ext_resource type="PackedScene" path="res://scenes/traps/fire_trap.tscn" id="32_lq6o5"]
+[ext_resource type="Script" path="res://scripts/traps/fire_trap.gd" id="33_1p26v"]
+[ext_resource type="SpriteFrames" path="res://resources/fire_frames.tres" id="34_1gyxc"]
+[ext_resource type="PackedScene" path="res://scenes/traps/spiked_ball.tscn" id="35_uyeuo"]
+[ext_resource type="Script" path="res://scripts/traps/spiked_ball.gd" id="36_cqu1g"]
+[ext_resource type="Texture2D" path="res://Traps/Spiked Ball/Chain.png" id="37_4mm18"]
+[ext_resource type="Texture2D" path="res://Traps/Spiked Ball/Spiked Ball.png" id="38_y3o2l"]
+[ext_resource type="PackedScene" path="res://scenes/traps/moving_platform.tscn" id="39_8iv1u"]
+[ext_resource type="Script" path="res://scripts/traps/moving_platform.gd" id="40_6st4x"]
+[ext_resource type="SpriteFrames" path="res://resources/moving_platform_frames.tres" id="41_h2kkf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
+size = Vector2(14, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idbn7"]
+size = Vector2(3200, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ob8i"]
+size = Vector2(20, 44)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_26mho"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hd0mb"]
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25tn4"]
+size = Vector2(22, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0u2lt"]
+size = Vector2(24, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gelnl"]
+size = Vector2(24, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7ub3"]
+size = Vector2(14, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1npup"]
+radius = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cyw1b"]
+size = Vector2(32, 8)
+
+[node name="Level2" type="Node2D" unique_id=2078354876]
+script = ExtResource("1_2e0t0")
+level_index = 2
+level_title = "Clockwork Foundry"
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="." unique_id=1604069285]
+layer = -10
+
+[node name="@TextureRect@23" type="TextureRect" parent="BackgroundLayer" unique_id=2062217509]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_keip3")
+stretch_mode = 1
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=531560139]
+tile_map_data = PackedByteArray("AAAAABAAAAABAAQAAAABABAAAAABAAQAAAACABAAAAABAAQAAAADABAAAAABAAQAAAAEABAAAAABAAQAAAAFABAAAAABAAQAAAAGABAAAAABAAQAAAAHABAAAAABAAQAAAAIABAAAAABAAQAAAAJABAAAAABAAQAAAAKABAAAAABAAQAAAALABAAAAABAAQAAAAAABEAAAABAAUAAAABABEAAAABAAUAAAACABEAAAABAAUAAAADABEAAAABAAUAAAAEABEAAAABAAUAAAAFABEAAAABAAUAAAAGABEAAAABAAUAAAAHABEAAAABAAUAAAAIABEAAAABAAUAAAAJABEAAAABAAUAAAAKABEAAAABAAUAAAALABEAAAABAAUAAAAAABIAAAABAAUAAAABABIAAAABAAUAAAACABIAAAABAAUAAAADABIAAAABAAUAAAAEABIAAAABAAUAAAAFABIAAAABAAUAAAAGABIAAAABAAUAAAAHABIAAAABAAUAAAAIABIAAAABAAUAAAAJABIAAAABAAUAAAAKABIAAAABAAUAAAALABIAAAABAAUAAAAAABMAAAABAAUAAAABABMAAAABAAUAAAACABMAAAABAAUAAAADABMAAAABAAUAAAAEABMAAAABAAUAAAAFABMAAAABAAUAAAAGABMAAAABAAUAAAAHABMAAAABAAUAAAAIABMAAAABAAUAAAAJABMAAAABAAUAAAAKABMAAAABAAUAAAALABMAAAABAAUAAAAOABAAAAABAAQAAAAPABAAAAABAAQAAAAQABAAAAABAAQAAAARABAAAAABAAQAAAASABAAAAABAAQAAAATABAAAAABAAQAAAAUABAAAAABAAQAAAAVABAAAAABAAQAAAAWABAAAAABAAQAAAAXABAAAAABAAQAAAAYABAAAAABAAQAAAAZABAAAAABAAQAAAAaABAAAAABAAQAAAAbABAAAAABAAQAAAAcABAAAAABAAQAAAAdABAAAAABAAQAAAAOABEAAAABAAUAAAAPABEAAAABAAUAAAAQABEAAAABAAUAAAARABEAAAABAAUAAAASABEAAAABAAUAAAATABEAAAABAAUAAAAUABEAAAABAAUAAAAVABEAAAABAAUAAAAWABEAAAABAAUAAAAXABEAAAABAAUAAAAYABEAAAABAAUAAAAZABEAAAABAAUAAAAaABEAAAABAAUAAAAbABEAAAABAAUAAAAcABEAAAABAAUAAAAdABEAAAABAAUAAAAOABIAAAABAAUAAAAPABIAAAABAAUAAAAQABIAAAABAAUAAAARABIAAAABAAUAAAASABIAAAABAAUAAAATABIAAAABAAUAAAAUABIAAAABAAUAAAAVABIAAAABAAUAAAAWABIAAAABAAUAAAAXABIAAAABAAUAAAAYABIAAAABAAUAAAAZABIAAAABAAUAAAAaABIAAAABAAUAAAAbABIAAAABAAUAAAAcABIAAAABAAUAAAAdABIAAAABAAUAAAAOABMAAAABAAUAAAAPABMAAAABAAUAAAAQABMAAAABAAUAAAARABMAAAABAAUAAAASABMAAAABAAUAAAATABMAAAABAAUAAAAUABMAAAABAAUAAAAVABMAAAABAAUAAAAWABMAAAABAAUAAAAXABMAAAABAAUAAAAYABMAAAABAAUAAAAZABMAAAABAAUAAAAaABMAAAABAAUAAAAbABMAAAABAAUAAAAcABMAAAABAAUAAAAdABMAAAABAAUAAAAgABIAAAABAAQAAAAhABIAAAABAAQAAAAiABIAAAABAAQAAAAjABIAAAABAAQAAAAgABMAAAABAAUAAAAhABMAAAABAAUAAAAiABMAAAABAAUAAAAjABMAAAABAAUAAAAgABQAAAABAAUAAAAhABQAAAABAAUAAAAiABQAAAABAAUAAAAjABQAAAABAAUAAAAgABUAAAABAAUAAAAhABUAAAABAAUAAAAiABUAAAABAAUAAAAjABUAAAABAAUAAAAmAAYAAAABAAQAAAAnAAYAAAABAAQAAAAoAAYAAAABAAQAAAApAAYAAAABAAQAAAAqAAYAAAABAAQAAAArAAYAAAABAAQAAAAsAAYAAAABAAQAAAAtAAYAAAABAAQAAAAuAAYAAAABAAQAAAAvAAYAAAABAAQAAAAmAAcAAAABAAUAAAAnAAcAAAABAAUAAAAoAAcAAAABAAUAAAApAAcAAAABAAUAAAAqAAcAAAABAAUAAAArAAcAAAABAAUAAAAsAAcAAAABAAUAAAAtAAcAAAABAAUAAAAuAAcAAAABAAUAAAAvAAcAAAABAAUAAAAyAA4AAAABAAQAAAAzAA4AAAABAAQAAAA0AA4AAAABAAQAAAA1AA4AAAABAAQAAAA2AA4AAAABAAQAAAA3AA4AAAABAAQAAAA4AA4AAAABAAQAAAA5AA4AAAABAAQAAAA6AA4AAAABAAQAAAA7AA4AAAABAAQAAAA8AA4AAAABAAQAAAA9AA4AAAABAAQAAAA+AA4AAAABAAQAAAA/AA4AAAABAAQAAABAAA4AAAABAAQAAABBAA4AAAABAAQAAABCAA4AAAABAAQAAABDAA4AAAABAAQAAAAyAA8AAAABAAUAAAAzAA8AAAABAAUAAAA0AA8AAAABAAUAAAA1AA8AAAABAAUAAAA2AA8AAAABAAUAAAA3AA8AAAABAAUAAAA4AA8AAAABAAUAAAA5AA8AAAABAAUAAAA6AA8AAAABAAUAAAA7AA8AAAABAAUAAAA8AA8AAAABAAUAAAA9AA8AAAABAAUAAAA+AA8AAAABAAUAAAA/AA8AAAABAAUAAABAAA8AAAABAAUAAABBAA8AAAABAAUAAABCAA8AAAABAAUAAABDAA8AAAABAAUAAAAyABAAAAABAAUAAAAzABAAAAABAAUAAAA0ABAAAAABAAUAAAA1ABAAAAABAAUAAAA2ABAAAAABAAUAAAA3ABAAAAABAAUAAAA4ABAAAAABAAUAAAA5ABAAAAABAAUAAAA6ABAAAAABAAUAAAA7ABAAAAABAAUAAAA8ABAAAAABAAUAAAA9ABAAAAABAAUAAAA+ABAAAAABAAUAAAA/ABAAAAABAAUAAABAABAAAAABAAUAAABBABAAAAABAAUAAABCABAAAAABAAUAAABDABAAAAABAAUAAAAyABEAAAABAAUAAAAzABEAAAABAAUAAAA0ABEAAAABAAUAAAA1ABEAAAABAAUAAAA2ABEAAAABAAUAAAA3ABEAAAABAAUAAAA4ABEAAAABAAUAAAA5ABEAAAABAAUAAAA6ABEAAAABAAUAAAA7ABEAAAABAAUAAAA8ABEAAAABAAUAAAA9ABEAAAABAAUAAAA+ABEAAAABAAUAAAA/ABEAAAABAAUAAABAABEAAAABAAUAAABBABEAAAABAAUAAABCABEAAAABAAUAAABDABEAAAABAAUAAAAyABIAAAABAAUAAAAzABIAAAABAAUAAAA0ABIAAAABAAUAAAA1ABIAAAABAAUAAAA2ABIAAAABAAUAAAA3ABIAAAABAAUAAAA4ABIAAAABAAUAAAA5ABIAAAABAAUAAAA6ABIAAAABAAUAAAA7ABIAAAABAAUAAAA8ABIAAAABAAUAAAA9ABIAAAABAAUAAAA+ABIAAAABAAUAAAA/ABIAAAABAAUAAABAABIAAAABAAUAAABBABIAAAABAAUAAABCABIAAAABAAUAAABDABIAAAABAAUAAABGAA0AAAABAAQAAABHAA0AAAABAAQAAABIAA0AAAABAAQAAABJAA0AAAABAAQAAABKAA0AAAABAAQAAABLAA0AAAABAAQAAABMAA0AAAABAAQAAABNAA0AAAABAAQAAABGAA4AAAABAAUAAABHAA4AAAABAAUAAABIAA4AAAABAAUAAABJAA4AAAABAAUAAABKAA4AAAABAAUAAABLAA4AAAABAAUAAABMAA4AAAABAAUAAABNAA4AAAABAAUAAABGAA8AAAABAAUAAABHAA8AAAABAAUAAABIAA8AAAABAAUAAABJAA8AAAABAAUAAABKAA8AAAABAAUAAABLAA8AAAABAAUAAABMAA8AAAABAAUAAABNAA8AAAABAAUAAABGABAAAAABAAUAAABHABAAAAABAAUAAABIABAAAAABAAUAAABJABAAAAABAAUAAABKABAAAAABAAUAAABLABAAAAABAAUAAABMABAAAAABAAUAAABNABAAAAABAAUAAABGABEAAAABAAUAAABHABEAAAABAAUAAABIABEAAAABAAUAAABJABEAAAABAAUAAABKABEAAAABAAUAAABLABEAAAABAAUAAABMABEAAAABAAUAAABNABEAAAABAAUAAABGABIAAAABAAUAAABHABIAAAABAAUAAABIABIAAAABAAUAAABJABIAAAABAAUAAABKABIAAAABAAUAAABLABIAAAABAAUAAABMABIAAAABAAUAAABNABIAAAABAAUAAABQAAIAAAABAAQAAABRAAIAAAABAAQAAABSAAIAAAABAAQAAABTAAIAAAABAAQAAABUAAIAAAABAAQAAABVAAIAAAABAAQAAABWAAIAAAABAAQAAABXAAIAAAABAAQAAABYAAIAAAABAAQAAABZAAIAAAABAAQAAABQAAMAAAABAAUAAABRAAMAAAABAAUAAABSAAMAAAABAAUAAABTAAMAAAABAAUAAABUAAMAAAABAAUAAABVAAMAAAABAAUAAABWAAMAAAABAAUAAABXAAMAAAABAAUAAABYAAMAAAABAAUAAABZAAMAAAABAAUAAABQAA8AAAABAAQAAABRAA8AAAABAAQAAABSAA8AAAABAAQAAABTAA8AAAABAAQAAABUAA8AAAABAAQAAABVAA8AAAABAAQAAABWAA8AAAABAAQAAABXAA8AAAABAAQAAABYAA8AAAABAAQAAABZAA8AAAABAAQAAABaAA8AAAABAAQAAABbAA8AAAABAAQAAABQABAAAAABAAUAAABRABAAAAABAAUAAABSABAAAAABAAUAAABTABAAAAABAAUAAABUABAAAAABAAUAAABVABAAAAABAAUAAABWABAAAAABAAUAAABXABAAAAABAAUAAABYABAAAAABAAUAAABZABAAAAABAAUAAABaABAAAAABAAUAAABbABAAAAABAAUAAABQABEAAAABAAUAAABRABEAAAABAAUAAABSABEAAAABAAUAAABTABEAAAABAAUAAABUABEAAAABAAUAAABVABEAAAABAAUAAABWABEAAAABAAUAAABXABEAAAABAAUAAABYABEAAAABAAUAAABZABEAAAABAAUAAABaABEAAAABAAUAAABbABEAAAABAAUAAABQABIAAAABAAUAAABRABIAAAABAAUAAABSABIAAAABAAUAAABTABIAAAABAAUAAABUABIAAAABAAUAAABVABIAAAABAAUAAABWABIAAAABAAUAAABXABIAAAABAAUAAABYABIAAAABAAUAAABZABIAAAABAAUAAABaABIAAAABAAUAAABbABIAAAABAAUAAABkAAgAAAABAAQAAABlAAgAAAABAAQAAABmAAgAAAABAAQAAABnAAgAAAABAAQAAABoAAgAAAABAAQAAABpAAgAAAABAAQAAABqAAgAAAABAAQAAABrAAgAAAABAAQAAABsAAgAAAABAAQAAABtAAgAAAABAAQAAABuAAgAAAABAAQAAABvAAgAAAABAAQAAABwAAgAAAABAAQAAABxAAgAAAABAAQAAABkAAkAAAABAAUAAABlAAkAAAABAAUAAABmAAkAAAABAAUAAABnAAkAAAABAAUAAABoAAkAAAABAAUAAABpAAkAAAABAAUAAABqAAkAAAABAAUAAABrAAkAAAABAAUAAABsAAkAAAABAAUAAABtAAkAAAABAAUAAABuAAkAAAABAAUAAABvAAkAAAABAAUAAABwAAkAAAABAAUAAABxAAkAAAABAAUAAABkAAoAAAABAAUAAABlAAoAAAABAAUAAABmAAoAAAABAAUAAABnAAoAAAABAAUAAABoAAoAAAABAAUAAABpAAoAAAABAAUAAABqAAoAAAABAAUAAABrAAoAAAABAAUAAABsAAoAAAABAAUAAABtAAoAAAABAAUAAABuAAoAAAABAAUAAABvAAoAAAABAAUAAABwAAoAAAABAAUAAABxAAoAAAABAAUAAABkAAsAAAABAAUAAABlAAsAAAABAAUAAABmAAsAAAABAAUAAABnAAsAAAABAAUAAABoAAsAAAABAAUAAABpAAsAAAABAAUAAABqAAsAAAABAAUAAABrAAsAAAABAAUAAABsAAsAAAABAAUAAABtAAsAAAABAAUAAABuAAsAAAABAAUAAABvAAsAAAABAAUAAABwAAsAAAABAAUAAABxAAsAAAABAAUAAABkAAwAAAABAAUAAABlAAwAAAABAAUAAABmAAwAAAABAAUAAABnAAwAAAABAAUAAABoAAwAAAABAAUAAABpAAwAAAABAAUAAABqAAwAAAABAAUAAABrAAwAAAABAAUAAABsAAwAAAABAAUAAABtAAwAAAABAAUAAABuAAwAAAABAAUAAABvAAwAAAABAAUAAABwAAwAAAABAAUAAABxAAwAAAABAAUAAABkAA0AAAABAAUAAABlAA0AAAABAAUAAABmAA0AAAABAAUAAABnAA0AAAABAAUAAABoAA0AAAABAAUAAABpAA0AAAABAAUAAABqAA0AAAABAAUAAABrAA0AAAABAAUAAABsAA0AAAABAAUAAABtAA0AAAABAAUAAABuAA0AAAABAAUAAABvAA0AAAABAAUAAABwAA0AAAABAAUAAABxAA0AAAABAAUAAABkAA4AAAABAAUAAABlAA4AAAABAAUAAABmAA4AAAABAAUAAABnAA4AAAABAAUAAABoAA4AAAABAAUAAABpAA4AAAABAAUAAABqAA4AAAABAAUAAABrAA4AAAABAAUAAABsAA4AAAABAAUAAABtAA4AAAABAAUAAABuAA4AAAABAAUAAABvAA4AAAABAAUAAABwAA4AAAABAAUAAABxAA4AAAABAAUAAABkAA8AAAABAAUAAABlAA8AAAABAAUAAABmAA8AAAABAAUAAABnAA8AAAABAAUAAABoAA8AAAABAAUAAABpAA8AAAABAAUAAABqAA8AAAABAAUAAABrAA8AAAABAAUAAABsAA8AAAABAAUAAABtAA8AAAABAAUAAABuAA8AAAABAAUAAABvAA8AAAABAAUAAABwAA8AAAABAAUAAABxAA8AAAABAAUAAABkABAAAAABAAUAAABlABAAAAABAAUAAABmABAAAAABAAUAAABnABAAAAABAAUAAABoABAAAAABAAUAAABpABAAAAABAAUAAABqABAAAAABAAUAAABrABAAAAABAAUAAABsABAAAAABAAUAAABtABAAAAABAAUAAABuABAAAAABAAUAAABvABAAAAABAAUAAABwABAAAAABAAUAAABxABAAAAABAAUAAABkABEAAAABAAUAAABlABEAAAABAAUAAABmABEAAAABAAUAAABnABEAAAABAAUAAABoABEAAAABAAUAAABpABEAAAABAAUAAABqABEAAAABAAUAAABrABEAAAABAAUAAABsABEAAAABAAUAAABtABEAAAABAAUAAABuABEAAAABAAUAAABvABEAAAABAAUAAABwABEAAAABAAUAAABxABEAAAABAAUAAAA=")
+tile_set = ExtResource("3_exwx8")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=2138272191 instance=ExtResource("4_17aof")]
+position = Vector2(60, 220)
+collision_mask = 14
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1658565937]
+sprite_frames = ExtResource("5_6nfno")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=238164580]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_dyp2m")
+
+[node name="DustParticles" type="CPUParticles2D" parent="Player" unique_id=2112092107]
+position = Vector2(0, 14)
+emitting = false
+amount = 4
+texture = ExtResource("6_0y23r")
+lifetime = 0.35
+one_shot = true
+explosiveness = 0.8
+direction = Vector2(0, -1)
+gravity = Vector2(0, 100)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+
+[node name="CoyoteTimer" type="Timer" parent="Player" unique_id=254819643]
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="Player" unique_id=1656757048]
+one_shot = true
+
+[node name="InvulnerableTimer" type="Timer" parent="Player" unique_id=468362007]
+one_shot = true
+
+[node name="DashTimer" type="Timer" parent="Player" unique_id=1259199793]
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="Player" unique_id=696021051]
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=271239638]
+limit_left = -60
+limit_top = -250
+limit_right = 2600
+limit_bottom = 500
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="AbyssZone" type="Area2D" parent="." unique_id=432945687]
+collision_layer = 4
+
+[node name="@CollisionShape2D@24" type="CollisionShape2D" parent="AbyssZone" unique_id=753295423]
+position = Vector2(1300, 480)
+shape = SubResource("RectangleShape2D_idbn7")
+
+[node name="HUD" parent="." instance=ExtResource("7_wrgna")]
+
+[node name="Checkpoint" type="Area2D" parent="." unique_id=53638503 instance=ExtResource("16_nsjcl")]
+position = Vector2(50, 224)
+script = ExtResource("17_xjpyo")
+checkpoint_type = "start"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Checkpoint" unique_id=1445700131]
+sprite_frames = ExtResource("18_lhwnp")
+animation = &"no_flag"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoint" unique_id=1480290637]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_3ob8i")
+
+[node name="ConfettiParticles" type="CPUParticles2D" parent="Checkpoint" unique_id=2035049945]
+emitting = false
+amount = 16
+texture = ExtResource("19_852cy")
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, -1)
+spread = 70.0
+gravity = Vector2(0, 150)
+initial_velocity_min = 120.0
+initial_velocity_max = 240.0
+
+[node name="Fruit" type="Area2D" parent="." unique_id=2119143104 instance=ExtResource("20_x63fv")]
+position = Vector2(90, 230)
+script = ExtResource("21_bnt33")
+fruit_type = "orange"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Fruit" unique_id=1002185884]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fruit" unique_id=1207497377]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@Area2D@25" type="Area2D" parent="." unique_id=1395812687 instance=ExtResource("20_x63fv")]
+position = Vector2(120, 230)
+script = ExtResource("21_bnt33")
+fruit_type = "orange"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@25" unique_id=2133600134]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@25" unique_id=1079873912]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="Saw" type="Area2D" parent="." unique_id=393361246 instance=ExtResource("23_7to3y")]
+position = Vector2(260, 246)
+script = ExtResource("24_ywi5j")
+patrol_offset = Vector2(80, 0)
+speed = 90.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Saw" unique_id=1337245704]
+sprite_frames = ExtResource("25_nqmx1")
+animation = &"on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Saw" unique_id=1082377315]
+shape = SubResource("CircleShape2D_hd0mb")
+
+[node name="BreakableBox" type="StaticBody2D" parent="." unique_id=1083423075 instance=ExtResource("26_i1qex")]
+position = Vector2(380, 240)
+script = ExtResource("27_ircvk")
+box_type = 2
+contained_fruit_type = "kiwi"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BreakableBox" unique_id=638065106]
+sprite_frames = ExtResource("28_8gy8s")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BreakableBox" unique_id=367725620]
+shape = SubResource("RectangleShape2D_25tn4")
+
+[node name="HitArea" type="Area2D" parent="BreakableBox" unique_id=1645746858]
+collision_layer = 4
+
+[node name="@CollisionShape2D@2" type="CollisionShape2D" parent="BreakableBox/HitArea" unique_id=1888135885]
+shape = SubResource("RectangleShape2D_0u2lt")
+
+[node name="@Area2D@26" type="Area2D" parent="." unique_id=1621290149 instance=ExtResource("20_x63fv")]
+position = Vector2(300, 220)
+script = ExtResource("21_bnt33")
+fruit_type = "kiwi"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@26" unique_id=317505017]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@26" unique_id=368233770]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="Fan" type="Area2D" parent="." unique_id=747412610 instance=ExtResource("29_g8c2j")]
+position = Vector2(540, 280)
+script = ExtResource("30_mghg3")
+updraft_force = 650.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Fan" unique_id=1351815037]
+sprite_frames = ExtResource("31_xlkqr")
+animation = &"on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fan" unique_id=1903362622]
+position = Vector2(0, -50)
+shape = SubResource("RectangleShape2D_gelnl")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Fan" unique_id=1597488411]
+position = Vector2(0, -4)
+amount = 6
+texture = ExtResource("6_0y23r")
+lifetime = 0.5
+direction = Vector2(0, -1)
+spread = 15.0
+gravity = Vector2(0, -50)
+initial_velocity_min = 100.0
+initial_velocity_max = 160.0
+
+[node name="@Area2D@27" type="Area2D" parent="." unique_id=108143366 instance=ExtResource("20_x63fv")]
+position = Vector2(540, 210)
+script = ExtResource("21_bnt33")
+fruit_type = "bananas"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@27" unique_id=2078916839]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@27" unique_id=1347886504]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@Area2D@28" type="Area2D" parent="." unique_id=812875822 instance=ExtResource("20_x63fv")]
+position = Vector2(540, 150)
+script = ExtResource("21_bnt33")
+fruit_type = "bananas"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@28" unique_id=403695173]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@28" unique_id=1274718701]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@Area2D@29" type="Area2D" parent="." unique_id=1108740492 instance=ExtResource("20_x63fv")]
+position = Vector2(540, 90)
+script = ExtResource("21_bnt33")
+fruit_type = "pineapple"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@29" unique_id=2121083417]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@29" unique_id=420702661]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@Area2D@30" type="Area2D" parent="." unique_id=2033715738 instance=ExtResource("20_x63fv")]
+position = Vector2(640, 70)
+script = ExtResource("21_bnt33")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@30" unique_id=1357115051]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@30" unique_id=347834934]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@StaticBody2D@31" type="StaticBody2D" parent="." unique_id=1423541186 instance=ExtResource("26_i1qex")]
+position = Vector2(680, 80)
+script = ExtResource("27_ircvk")
+box_type = 3
+contained_fruit_type = "strawberry"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@StaticBody2D@31" unique_id=1416341899]
+sprite_frames = ExtResource("28_8gy8s")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@StaticBody2D@31" unique_id=2084774883]
+shape = SubResource("RectangleShape2D_25tn4")
+
+[node name="HitArea" type="Area2D" parent="@StaticBody2D@31" unique_id=1156925339]
+collision_layer = 4
+
+[node name="@CollisionShape2D@2" type="CollisionShape2D" parent="@StaticBody2D@31/HitArea" unique_id=1184392939]
+shape = SubResource("RectangleShape2D_0u2lt")
+
+[node name="FireTrap" type="Area2D" parent="." unique_id=654326496 instance=ExtResource("32_lq6o5")]
+position = Vector2(830, 208)
+script = ExtResource("33_1p26v")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="FireTrap" unique_id=1300377573]
+sprite_frames = ExtResource("34_1gyxc")
+animation = &"off"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireTrap" unique_id=1991737894]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_y7ub3")
+
+[node name="@Area2D@32" type="Area2D" parent="." unique_id=724303496 instance=ExtResource("32_lq6o5")]
+position = Vector2(900, 208)
+script = ExtResource("33_1p26v")
+start_active = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@32" unique_id=1527972077]
+sprite_frames = ExtResource("34_1gyxc")
+animation = &"off"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@32" unique_id=1648078607]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_y7ub3")
+
+[node name="@Area2D@33" type="Area2D" parent="." unique_id=770149377 instance=ExtResource("20_x63fv")]
+position = Vector2(865, 190)
+script = ExtResource("21_bnt33")
+fruit_type = "cherries"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@33" unique_id=1321318487]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@33" unique_id=676546487]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@Area2D@34" type="Area2D" parent="." unique_id=1590717817 instance=ExtResource("16_nsjcl")]
+position = Vector2(1150, 178)
+script = ExtResource("17_xjpyo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@34" unique_id=824504796]
+sprite_frames = ExtResource("18_lhwnp")
+animation = &"no_flag"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@34" unique_id=37893558]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_3ob8i")
+
+[node name="ConfettiParticles" type="CPUParticles2D" parent="@Area2D@34" unique_id=1085075377]
+emitting = false
+amount = 16
+texture = ExtResource("19_852cy")
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, -1)
+spread = 70.0
+gravity = Vector2(0, 150)
+initial_velocity_min = 120.0
+initial_velocity_max = 240.0
+
+[node name="SpikedBallPendulum" type="Node2D" parent="." unique_id=829881343 instance=ExtResource("35_uyeuo")]
+position = Vector2(1330, 48)
+script = ExtResource("36_cqu1g")
+chain_length = 5
+swing_speed = 2.4
+
+[node name="Pivot" type="Node2D" parent="SpikedBallPendulum" unique_id=1928855585]
+
+[node name="@Sprite2D@4" type="Sprite2D" parent="SpikedBallPendulum/Pivot" unique_id=1677406945]
+position = Vector2(0, 4)
+texture = ExtResource("37_4mm18")
+
+[node name="@Sprite2D@5" type="Sprite2D" parent="SpikedBallPendulum/Pivot" unique_id=1742029610]
+position = Vector2(0, 12)
+texture = ExtResource("37_4mm18")
+
+[node name="@Sprite2D@6" type="Sprite2D" parent="SpikedBallPendulum/Pivot" unique_id=251450045]
+position = Vector2(0, 20)
+texture = ExtResource("37_4mm18")
+
+[node name="@Sprite2D@7" type="Sprite2D" parent="SpikedBallPendulum/Pivot" unique_id=2075492385]
+position = Vector2(0, 28)
+texture = ExtResource("37_4mm18")
+
+[node name="HitArea" type="Area2D" parent="SpikedBallPendulum/Pivot" unique_id=1484666176]
+collision_layer = 4
+
+[node name="@Sprite2D@8" type="Sprite2D" parent="SpikedBallPendulum/Pivot/HitArea" unique_id=1712458369]
+texture = ExtResource("38_y3o2l")
+
+[node name="@CollisionShape2D@9" type="CollisionShape2D" parent="SpikedBallPendulum/Pivot/HitArea" unique_id=919895606]
+shape = SubResource("CircleShape2D_1npup")
+
+[node name="@Area2D@35" type="Area2D" parent="." unique_id=1934592000 instance=ExtResource("20_x63fv")]
+position = Vector2(1310, 215)
+script = ExtResource("21_bnt33")
+fruit_type = "melon"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@35" unique_id=1013313394]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@35" unique_id=1310919532]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@Area2D@36" type="Area2D" parent="." unique_id=2029887085 instance=ExtResource("20_x63fv")]
+position = Vector2(1350, 215)
+script = ExtResource("21_bnt33")
+fruit_type = "melon"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@36" unique_id=1175995872]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@36" unique_id=610890116]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="MovingPlatform" type="AnimatableBody2D" parent="." unique_id=1720004061 instance=ExtResource("39_8iv1u")]
+position = Vector2(1500, 220)
+script = ExtResource("40_6st4x")
+move_offset = Vector2(0, -90)
+speed = 60.0
+use_grey_skin = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="MovingPlatform" unique_id=443626360]
+sprite_frames = ExtResource("41_h2kkf")
+animation = &"brown_on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovingPlatform" unique_id=422495108]
+shape = SubResource("RectangleShape2D_cyw1b")
+
+[node name="@Area2D@37" type="Area2D" parent="." unique_id=939213053 instance=ExtResource("20_x63fv")]
+position = Vector2(1500, 150)
+script = ExtResource("21_bnt33")
+fruit_type = "strawberry"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@37" unique_id=1914935563]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@37" unique_id=153086723]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@StaticBody2D@38" type="StaticBody2D" parent="." unique_id=1320339421 instance=ExtResource("26_i1qex")]
+position = Vector2(1660, 112)
+script = ExtResource("27_ircvk")
+box_type = 2
+contained_fruit_type = "pineapple"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@StaticBody2D@38" unique_id=1981070110]
+sprite_frames = ExtResource("28_8gy8s")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@StaticBody2D@38" unique_id=407486577]
+shape = SubResource("RectangleShape2D_25tn4")
+
+[node name="HitArea" type="Area2D" parent="@StaticBody2D@38" unique_id=1226071761]
+collision_layer = 4
+
+[node name="@CollisionShape2D@2" type="CollisionShape2D" parent="@StaticBody2D@38/HitArea" unique_id=1514133970]
+shape = SubResource("RectangleShape2D_0u2lt")
+
+[node name="@Area2D@39" type="Area2D" parent="." unique_id=1192224739 instance=ExtResource("20_x63fv")]
+position = Vector2(1720, 100)
+script = ExtResource("21_bnt33")
+fruit_type = "pineapple"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@39" unique_id=94979042]
+sprite_frames = ExtResource("22_em1wd")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@39" unique_id=138293749]
+shape = SubResource("CircleShape2D_26mho")
+
+[node name="@Area2D@40" type="Area2D" parent="." unique_id=714739955 instance=ExtResource("16_nsjcl")]
+position = Vector2(1780, 96)
+script = ExtResource("17_xjpyo")
+checkpoint_type = "end"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="@Area2D@40" unique_id=742077581]
+sprite_frames = ExtResource("18_lhwnp")
+animation = &"no_flag"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="@Area2D@40" unique_id=1751513260]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_3ob8i")
+
+[node name="ConfettiParticles" type="CPUParticles2D" parent="@Area2D@40" unique_id=418104528]
+emitting = false
+amount = 16
+texture = ExtResource("19_852cy")
+one_shot = true
+explosiveness = 0.9
+direction = Vector2(0, -1)
+spread = 70.0
+gravity = Vector2(0, 150)
+initial_velocity_min = 120.0
+initial_velocity_max = 240.0

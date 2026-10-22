@@ -1,0 +1,38 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/traps/spiked_ball.gd" id="1_rfitf"]
+[ext_resource type="Texture2D" path="res://Traps/Spiked Ball/Chain.png" id="2_nbpcn"]
+[ext_resource type="Texture2D" path="res://Traps/Spiked Ball/Spiked Ball.png" id="3_m3bx6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1npup"]
+radius = 12.0
+
+[node name="SpikedBallPendulum" type="Node2D" unique_id=829881343]
+script = ExtResource("1_rfitf")
+
+[node name="Pivot" type="Node2D" parent="." unique_id=1928855585]
+
+[node name="@Sprite2D@4" type="Sprite2D" parent="Pivot" unique_id=1677406945]
+position = Vector2(0, 4)
+texture = ExtResource("2_nbpcn")
+
+[node name="@Sprite2D@5" type="Sprite2D" parent="Pivot" unique_id=1742029610]
+position = Vector2(0, 12)
+texture = ExtResource("2_nbpcn")
+
+[node name="@Sprite2D@6" type="Sprite2D" parent="Pivot" unique_id=251450045]
+position = Vector2(0, 20)
+texture = ExtResource("2_nbpcn")
+
+[node name="@Sprite2D@7" type="Sprite2D" parent="Pivot" unique_id=2075492385]
+position = Vector2(0, 28)
+texture = ExtResource("2_nbpcn")
+
+[node name="HitArea" type="Area2D" parent="Pivot" unique_id=1484666176]
+collision_layer = 4
+
+[node name="@Sprite2D@8" type="Sprite2D" parent="Pivot/HitArea" unique_id=1712458369]
+texture = ExtResource("3_m3bx6")
+
+[node name="@CollisionShape2D@9" type="CollisionShape2D" parent="Pivot/HitArea" unique_id=919895606]
+shape = SubResource("CircleShape2D_1npup")

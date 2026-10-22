@@ -1,0 +1,22 @@
+{
+	"endless_best_distance": 0,
+	"endless_best_fruits": 0,
+	"max_unlocked_level": 3,
+	"records": {
+		"1": {
+			"best_time": 0.0145833333333333,
+			"completed": true,
+			"fruits": 0,
+			"stars": 2,
+			"total_fruits": 10
+		},
+		"2": {
+			"best_time": 0.00833333333333333,
+			"completed": true,
+			"fruits": 0,
+			"stars": 2,
+			"total_fruits": 12
+		}
+	},
+	"selected_hero_id": "ninja_frog"
+}

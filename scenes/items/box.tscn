@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/items/box.gd" id="1_288oi"]
+[ext_resource type="SpriteFrames" path="res://resources/box1_frames.tres" id="2_r3538"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_25tn4"]
+size = Vector2(22, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0u2lt"]
+size = Vector2(24, 24)
+
+[node name="BreakableBox" type="StaticBody2D" unique_id=1083423075]
+script = ExtResource("1_288oi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=638065106]
+sprite_frames = ExtResource("2_r3538")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=367725620]
+shape = SubResource("RectangleShape2D_25tn4")
+
+[node name="HitArea" type="Area2D" parent="." unique_id=1645746858]
+collision_layer = 4
+
+[node name="@CollisionShape2D@2" type="CollisionShape2D" parent="HitArea" unique_id=1888135885]
+shape = SubResource("RectangleShape2D_0u2lt")

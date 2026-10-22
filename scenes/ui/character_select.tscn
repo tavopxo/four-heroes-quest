@@ -1,0 +1,49 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/character_select.gd" id="1_hwgyf"]
+[ext_resource type="Texture2D" path="res://Background/Yellow.png" id="2_gp4m6"]
+
+[node name="CharacterSelect" type="Control" unique_id=920029847]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_hwgyf")
+
+[node name="@TextureRect@10" type="TextureRect" parent="." unique_id=1258985127]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_gp4m6")
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=465143753]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="@Label@11" type="Label" parent="VBoxContainer" unique_id=378051798]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "CHOOSE YOUR HERO"
+horizontal_alignment = 1
+
+[node name="HeroCardsContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1634265996]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="BottomBar" type="HBoxContainer" parent="VBoxContainer" unique_id=617716542]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="BackBtn" type="Button" parent="VBoxContainer/BottomBar" unique_id=804245280]
+layout_mode = 2
+text = "BACK TO MENU"
+
+[node name="PlayBtn" type="Button" parent="VBoxContainer/BottomBar" unique_id=444889660]
+layout_mode = 2
+text = "START ADVENTURE"

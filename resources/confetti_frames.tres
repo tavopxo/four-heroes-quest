@@ -1,0 +1,58 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://Other/Confetti (16x16).png" id="1_rmgb0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_daykc"]
+atlas = ExtResource("1_rmgb0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqaj7"]
+atlas = ExtResource("1_rmgb0")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62a07"]
+atlas = ExtResource("1_rmgb0")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wwa4d"]
+atlas = ExtResource("1_rmgb0")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjpm5"]
+atlas = ExtResource("1_rmgb0")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpqck"]
+atlas = ExtResource("1_rmgb0")
+region = Rect2(80, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_daykc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqaj7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62a07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wwa4d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjpm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jpqck")
+}],
+"loop": 0,
+"name": &"burst",
+"speed": 14.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]

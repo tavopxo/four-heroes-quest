@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/level_select.gd" id="1_l0h45"]
+[ext_resource type="Texture2D" path="res://Background/Green.png" id="2_7l8mc"]
+
+[node name="LevelSelect" type="Control" unique_id=841697932]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_l0h45")
+
+[node name="@TextureRect@12" type="TextureRect" parent="." unique_id=914594503]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_7l8mc")
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=179989586]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="@Label@13" type="Label" parent="VBoxContainer" unique_id=301271706]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "SELECT LEVEL"
+horizontal_alignment = 1
+
+[node name="LevelsGrid" type="HBoxContainer" parent="VBoxContainer" unique_id=1538503790]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="BottomBar" type="HBoxContainer" parent="VBoxContainer" unique_id=1300240650]
+layout_mode = 2
+alignment = 1
+
+[node name="BackBtn" type="Button" parent="VBoxContainer/BottomBar" unique_id=1486600903]
+layout_mode = 2
+text = "BACK TO MENU"

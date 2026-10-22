@@ -1,0 +1,219 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/endless_level.gd" id="1_endless"]
+[ext_resource type="Texture2D" path="res://Background/Purple.png" id="2_purple"]
+[ext_resource type="TileSet" path="res://resources/terrain_tileset.tres" id="3_tileset"]
+[ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="4_player"]
+[ext_resource type="Texture2D" path="res://Items/Fruits/Apple.png" id="5_apple"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="6_pause"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_abyss"]
+size = Vector2(3200, 80)
+
+[node name="EndlessLevel" type="Node2D"]
+script = ExtResource("1_endless")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="BackgroundTexture" type="TextureRect" parent="BackgroundLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_purple")
+stretch_mode = 1
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("3_tileset")
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(60, 220)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(140, 200)
+position_smoothing_enabled = true
+limit_top = -200
+limit_bottom = 450
+
+[node name="AbyssZone" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AbyssZone"]
+position = Vector2(0, 440)
+shape = SubResource("RectangleShape2D_abyss")
+
+[node name="SpawnedObjects" type="Node2D" parent="."]
+
+[node name="EndlessHUD" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="EndlessHUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="TopBar" type="HBoxContainer" parent="EndlessHUD/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 14
+
+[node name="HealthContainer" type="HBoxContainer" parent="EndlessHUD/MarginContainer/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="HeroBadge" type="HBoxContainer" parent="EndlessHUD/MarginContainer/TopBar"]
+layout_mode = 2
+
+[node name="HeroLabel" type="Label" parent="EndlessHUD/MarginContainer/TopBar/HeroBadge"]
+modulate = Color(0.9, 0.9, 0.4, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Hero"
+
+[node name="Spacer" type="Control" parent="EndlessHUD/MarginContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DistanceLabel" type="Label" parent="EndlessHUD/MarginContainer/TopBar"]
+modulate = Color(0.3, 1, 0.6, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "🏃 0m"
+
+[node name="FruitContainer" type="HBoxContainer" parent="EndlessHUD/MarginContainer/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="FruitIcon" type="TextureRect" parent="EndlessHUD/MarginContainer/TopBar/FruitContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("5_apple")
+stretch_mode = 5
+
+[node name="FruitLabel" type="Label" parent="EndlessHUD/MarginContainer/TopBar/FruitContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "0"
+
+[node name="BestLabel" type="Label" parent="EndlessHUD/MarginContainer/TopBar"]
+modulate = Color(1, 0.85, 0.2, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Best: 0m"
+
+[node name="PauseButton" type="Button" parent="EndlessHUD/MarginContainer/TopBar"]
+layout_mode = 2
+text = "II"
+
+[node name="PauseMenu" parent="EndlessHUD" instance=ExtResource("6_pause")]
+visible = false
+
+[node name="EndlessGameOver" type="Control" parent="EndlessHUD"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="ColorRect" parent="EndlessHUD/EndlessGameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12, 0.02, 0.04, 0.82)
+
+[node name="PanelContainer" type="PanelContainer" parent="EndlessHUD/EndlessGameOver"]
+custom_minimum_size = Vector2(280, 220)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -110.0
+offset_right = 140.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EndlessHUD/EndlessGameOver/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer"]
+modulate = Color(1, 0.35, 0.35, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "ENDLESS RUN OVER"
+horizontal_alignment = 1
+
+[node name="RecordBanner" type="Label" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer"]
+visible = false
+modulate = Color(1, 0.85, 0.2, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "★ NEW BEST DISTANCE! ★"
+horizontal_alignment = 1
+
+[node name="StatsGrid" type="GridContainer" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="DistTitle" type="Label" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Distance:"
+
+[node name="DistValue" type="Label" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "0 m"
+
+[node name="FruitsTitle" type="Label" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Fruits:"
+
+[node name="FruitsValue" type="Label" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "0"
+
+[node name="ScoreTitle" type="Label" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Total Score:"
+
+[node name="ScoreValue" type="Label" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "0 pts"
+
+[node name="ButtonsHBox" type="HBoxContainer" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="RetryBtn" type="Button" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/ButtonsHBox"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="HeroBtn" type="Button" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/ButtonsHBox"]
+layout_mode = 2
+text = "Heroes"
+
+[node name="MenuBtn" type="Button" parent="EndlessHUD/EndlessGameOver/PanelContainer/VBoxContainer/ButtonsHBox"]
+layout_mode = 2
+text = "Main Menu"

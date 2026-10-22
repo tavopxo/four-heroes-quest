@@ -1,0 +1,91 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_1g8jr"]
+[ext_resource type="Texture2D" path="res://Background/Blue.png" id="2_m1kxf"]
+[ext_resource type="SpriteFrames" path="res://resources/ninja_frog_frames.tres" id="3_x2yvf"]
+
+[node name="MainMenu" type="Control" unique_id=12175117]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_1g8jr")
+
+[node name="@TextureRect@20" type="TextureRect" parent="." unique_id=1850018182]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2_m1kxf")
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1909123860]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="@Label@21" type="Label" parent="VBoxContainer" unique_id=299558396]
+modulate = Color(1, 0.95, 0.4, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "FOUR HEROES QUEST"
+horizontal_alignment = 1
+
+[node name="@Label@22" type="Label" parent="VBoxContainer" unique_id=1814655739]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "ORIGINAL 2D PLATFORMER ADVENTURE"
+horizontal_alignment = 1
+
+[node name="HeroPreviewContainer" type="Control" parent="VBoxContainer" unique_id=498280665]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+
+[node name="HeroPreview" type="AnimatedSprite2D" parent="VBoxContainer/HeroPreviewContainer" unique_id=135765580]
+position = Vector2(320, 18)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("3_x2yvf")
+animation = &"idle"
+
+[node name="HeroNameLabel" type="Label" parent="VBoxContainer/HeroPreviewContainer" unique_id=1258736123]
+modulate = Color(0.85, 0.85, 0.6, 1)
+custom_minimum_size = Vector2(200, 16)
+layout_mode = 0
+offset_left = 220.0
+offset_top = 36.0
+offset_right = 220.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 9
+text = "Ninja Frog"
+horizontal_alignment = 1
+
+[node name="ButtonsVBox" type="VBoxContainer" parent="VBoxContainer" unique_id=1473563876]
+custom_minimum_size = Vector2(160, 120)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="PlayBtn" type="Button" parent="VBoxContainer/ButtonsVBox" unique_id=1680121457]
+layout_mode = 2
+text = "START ADVENTURE"
+
+[node name="EndlessBtn" type="Button" parent="VBoxContainer/ButtonsVBox" unique_id=208912345]
+layout_mode = 2
+text = "ENDLESS RUN"
+
+[node name="HeroesBtn" type="Button" parent="VBoxContainer/ButtonsVBox" unique_id=87145138]
+layout_mode = 2
+text = "SELECT HERO"
+
+[node name="LevelsBtn" type="Button" parent="VBoxContainer/ButtonsVBox" unique_id=1249192735]
+layout_mode = 2
+text = "LEVEL SELECT"
+
+[node name="SettingsBtn" type="Button" parent="VBoxContainer/ButtonsVBox" unique_id=2044275120]
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="QuitBtn" type="Button" parent="VBoxContainer/ButtonsVBox" unique_id=1979163768]
+layout_mode = 2
+text = "QUIT GAME"

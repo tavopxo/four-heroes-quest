@@ -1,0 +1,17 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/traps/moving_platform.gd" id="1_f5lfn"]
+[ext_resource type="SpriteFrames" path="res://resources/moving_platform_frames.tres" id="2_4ii7y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cyw1b"]
+size = Vector2(32, 8)
+
+[node name="MovingPlatform" type="AnimatableBody2D" unique_id=1720004061]
+script = ExtResource("1_f5lfn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=443626360]
+sprite_frames = ExtResource("2_4ii7y")
+animation = &"brown_on"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=422495108]
+shape = SubResource("RectangleShape2D_cyw1b")

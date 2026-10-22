@@ -1,0 +1,96 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/level_complete.gd" id="1_complete"]
+
+[node name="LevelCompleteMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_complete")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(280, 220)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -110.0
+offset_right = 140.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+modulate = Color(0.4, 1, 0.5, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "LEVEL COMPLETE!"
+horizontal_alignment = 1
+
+[node name="StarsLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+modulate = Color(1, 0.85, 0.2, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "★ ★ ★"
+horizontal_alignment = 1
+
+[node name="StatsGrid" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="TimeTitle" type="Label" parent="PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Time:"
+
+[node name="TimeLabel" type="Label" parent="PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "00.00s"
+
+[node name="FruitsTitle" type="Label" parent="PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "Fruits:"
+
+[node name="FruitsLabel" type="Label" parent="PanelContainer/VBoxContainer/StatsGrid"]
+layout_mode = 2
+text = "0 / 0"
+
+[node name="ButtonsHBox" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="RetryBtn" type="Button" parent="PanelContainer/VBoxContainer/ButtonsHBox"]
+layout_mode = 2
+text = "Retry"
+
+[node name="NextBtn" type="Button" parent="PanelContainer/VBoxContainer/ButtonsHBox"]
+layout_mode = 2
+text = "Next Level"
+
+[node name="MenuBtn" type="Button" parent="PanelContainer/VBoxContainer/ButtonsHBox"]
+layout_mode = 2
+text = "Levels"
