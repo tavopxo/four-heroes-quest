@@ -40,6 +40,8 @@ var fan_scene: PackedScene = preload("res://scenes/traps/fan.tscn")
 var fire_trap_scene: PackedScene = preload("res://scenes/traps/fire_trap.tscn")
 var slammer_scene: PackedScene = preload("res://scenes/traps/slammer.tscn")
 var pendulum_scene: PackedScene = preload("res://scenes/traps/spiked_ball.tscn")
+var enemy_scene: PackedScene = preload("res://scenes/characters/enemy.tscn")
+var powerup_scene: PackedScene = preload("res://scenes/items/powerup.tscn")
 
 var game_manager: Node:
 	get:
@@ -80,6 +82,8 @@ func _ready() -> void:
 		_on_fruits_changed(game_manager.fruits_collected, 0)
 		
 		var hero = game_manager.get_hero_data()
+		if game_manager.audio_manager:
+			game_manager.audio_manager.play_level_music(5)
 		if hero_label:
 			hero_label.text = hero.get("name", "Hero")
 		if best_label:
@@ -207,6 +211,18 @@ func _generate_next_chunk() -> void:
 		13: _build_chunk_vertical_tower(chunk_data, chunk_w)
 		14: _build_chunk_vertical_descent(chunk_data, chunk_w)
 		_: _build_chunk_flat_sprint(chunk_data, chunk_w)
+
+	# Keep the world mostly ground-based, like a traditional platformer.
+	# The generated upper route remains optional and rewards exploration.
+	_fill_ground_base(chunk_data, chunk_w)
+	if chunk_counter % 2 == 0:
+		_spawn_enemy(chunk_data, Vector2((next_chunk_tile_x + chunk_w / 2) * TILE_SIZE, BASE_Y * TILE_SIZE - 18))
+	if chunk_counter % 4 == 0:
+		var powerup = powerup_scene.instantiate()
+		powerup.powerup_type = ["health", "speed", "star"][randi() % 3]
+		powerup.position = Vector2((next_chunk_tile_x + chunk_w - 4) * TILE_SIZE, (BASE_Y - 2) * TILE_SIZE)
+		spawned_container.add_child(powerup)
+		chunk_data["nodes"].append(powerup)
 		
 	active_chunks.append(chunk_data)
 	next_chunk_tile_x += chunk_w
@@ -525,6 +541,10 @@ func _place_platform(chunk: Dictionary, start_x: int, top_y: int, width: int) ->
 		var tx = start_x + x
 		_place_column(chunk, tx, top_y, 2)
 
+func _fill_ground_base(chunk: Dictionary, w: int) -> void:
+	for x in range(w):
+		_place_column(chunk, next_chunk_tile_x + x, BASE_Y, 4)
+
 func _spawn_fruit(chunk: Dictionary, pos: Vector2) -> void:
 	var fruit_count: int = chunk.get("fruit_count", 0)
 	if fruit_count >= MAX_FRUITS_PER_CHUNK:
@@ -536,6 +556,12 @@ func _spawn_fruit(chunk: Dictionary, pos: Vector2) -> void:
 	spawned_container.add_child(f)
 	chunk["nodes"].append(f)
 	chunk["fruit_count"] = fruit_count + 1
+
+func _spawn_enemy(chunk: Dictionary, pos: Vector2) -> void:
+	var enemy = enemy_scene.instantiate()
+	enemy.position = pos
+	spawned_container.add_child(enemy)
+	chunk["nodes"].append(enemy)
 
 func _spawn_box(chunk: Dictionary, pos: Vector2) -> void:
 	var b = box_scene.instantiate()

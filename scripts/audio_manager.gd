@@ -14,7 +14,8 @@ func _ready() -> void:
 	# Load SFX
 	var sfx_names = [
 		"jump", "double_jump", "fruit", "trampoline", "hurt",
-		"box_break", "checkpoint", "dash", "stomp", "win", "click"
+		"box_break", "checkpoint", "dash", "stomp", "win", "click",
+		"pistol", "enemy_hit", "powerup"
 	]
 	for s_name in sfx_names:
 		var path = "res://audio/" + s_name + ".wav"
@@ -57,6 +58,18 @@ func play_bgm() -> void:
 		bgm_player.volume_db = linear_to_db(music_volume)
 		if not bgm_player.playing:
 			bgm_player.play()
+
+func play_level_music(level_index: int) -> void:
+	var path = "res://audio/level_%d.wav" % level_index
+	if level_index == 5:
+		path = "res://audio/endless.wav"
+	if not ResourceLoader.exists(path):
+		play_bgm()
+		return
+	var stream = load(path)
+	if stream is AudioStream:
+		bgm_player.stream = stream
+		bgm_player.play()
 
 func stop_bgm() -> void:
 	if bgm_player:

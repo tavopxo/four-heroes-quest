@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_script"]
 [ext_resource type="SpriteFrames" path="res://resources/ninja_frog_frames.tres" id="1_yewv4"]
 [ext_resource type="Texture2D" path="res://Other/Dust Particle.png" id="2_76oj4"]
+[ext_resource type="Script" path="res://scripts/weapon.gd" id="3_weapon"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyp2m"]
 size = Vector2(14, 22)
@@ -46,3 +47,8 @@ one_shot = true
 
 [node name="DashCooldownTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Weapon" type="Node2D" parent="."]
+position = Vector2(8, -2)
+z_index = 2
+script = ExtResource("3_weapon")

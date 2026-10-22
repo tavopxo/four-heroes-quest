@@ -11,6 +11,7 @@ class_name Player
 @onready var invulnerable_timer: Timer = $InvulnerableTimer
 @onready var dash_timer: Timer = $DashTimer
 @onready var dash_cooldown_timer: Timer = $DashCooldownTimer
+@onready var weapon: Node2D = $Weapon
 
 var game_manager: Node:
 	get:
@@ -47,6 +48,11 @@ var is_ground_pounding: bool = false
 var is_invulnerable: bool = false
 var is_dead: bool = false
 var facing_direction: int = 1 # 1: right, -1: left
+var bullet_scene: PackedScene = preload("res://scenes/items/bullet.tscn")
+var shoot_cooldown: float = 0.0
+var speed_powerup_timer: float = 0.0
+var star_powerup_timer: float = 0.0
+var base_speed: float = 160.0
 
 func _ready() -> void:
 	if hero_id == "" and game_manager:
@@ -73,6 +79,7 @@ func load_hero_stats(id: String) -> void:
 			"sprite_frames": "res://resources/ninja_frog_frames.tres"
 		}
 	speed = hero_data.get("speed", 160.0)
+	base_speed = speed
 	jump_velocity = hero_data.get("jump_velocity", -350.0)
 	double_jump_velocity = hero_data.get("double_jump_velocity", -320.0)
 	wall_slide_speed = hero_data.get("wall_slide_speed", 60.0)
@@ -98,6 +105,10 @@ func play_spawn_animation() -> void:
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
+	shoot_cooldown = maxf(0.0, shoot_cooldown - delta)
+	speed_powerup_timer = maxf(0.0, speed_powerup_timer - delta)
+	star_powerup_timer = maxf(0.0, star_powerup_timer - delta)
+	speed = base_speed * (1.45 if speed_powerup_timer > 0.0 else 1.0)
 		
 	var on_floor = is_on_floor()
 	var on_wall = is_on_wall() and not on_floor
@@ -254,7 +265,7 @@ func bounce(launch_force: float) -> void:
 	is_ground_pounding = false
 
 func take_damage(amount: int = 1, knockback_dir: Vector2 = Vector2.ZERO, bypass_invulnerability: bool = false) -> void:
-	if (is_invulnerable and not bypass_invulnerability) or is_dead:
+	if star_powerup_timer > 0.0 or (is_invulnerable and not bypass_invulnerability) or is_dead:
 		return
 		
 	var died = false
@@ -273,6 +284,30 @@ func take_damage(amount: int = 1, knockback_dir: Vector2 = Vector2.ZERO, bypass_
 		
 	animated_sprite.play("hit")
 	_flash_invulnerability()
+
+func fire_bullet(direction: Vector2, origin: Vector2) -> void:
+	if shoot_cooldown > 0.0 or is_dead:
+		return
+	shoot_cooldown = 0.18
+	var bullet = bullet_scene.instantiate()
+	bullet.global_position = origin + direction * 14.0
+	bullet.direction = direction
+	get_tree().current_scene.add_child(bullet)
+	if audio_manager:
+		audio_manager.play_sfx("pistol")
+
+func apply_powerup(powerup_type: String) -> void:
+	match powerup_type:
+		"health":
+			if game_manager:
+				game_manager.heal_player(1)
+		"speed":
+			speed_powerup_timer = 8.0
+		"star":
+			star_powerup_timer = 8.0
+			is_invulnerable = true
+	if audio_manager:
+		audio_manager.play_sfx("powerup")
 
 func _flash_invulnerability() -> void:
 	var tween = create_tween().set_loops(6)

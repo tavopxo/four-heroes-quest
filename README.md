@@ -71,6 +71,11 @@ A fully original, feature-complete 2D platformer adventure built with **Godot En
   - Catchy 8-bit chiptune background music loop.
 - **Progress Persistence**:
   - Automatically saves unlocked levels, best times, and star ratings to `user://game_save.json` (with graceful local fallback).
+- **Platformer Combat & Powerups**:
+  - Mouse-aimed pistol with projectile effects.
+  - Patrol enemies that can be defeated with shots.
+  - Health, speed, and temporary invulnerability powerups.
+  - Per-level procedural chiptune tracks and gameplay sound effects.
 
 ---
 

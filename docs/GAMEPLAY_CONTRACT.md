@@ -28,11 +28,13 @@ These behaviors are part of the current game design and must remain stable unles
 
 - Existing hazards damage through the established player damage path; they must not silently bypass invulnerability or health signaling.
 - New items and hazards should use the existing collision, scene, animation, and `AudioManager.play_sfx()` patterns.
+- Player combat uses the `fire` mouse action to aim toward the cursor and launch projectiles at visible enemies.
+- Powerups may grant health, temporary speed, or temporary invulnerability; their effects are applied by `Player.apply_powerup()`.
 - The four authored levels remain addressable as `res://scenes/levels/level_1.tscn` through `level_4.tscn`.
 - Endless mode remains separate from authored-level progression and continues to track distance and fruit records.
+- Endless chunks retain a solid ground route; upper platforms and vertical routes are optional challenge and reward paths.
 
 ## UI
 
 - Main menu, hero selection, level selection, settings, pause, game-over, and completion flows remain reachable.
 - UI must use `GameManager` as the source of global state and must not create a second save or progression model.
-

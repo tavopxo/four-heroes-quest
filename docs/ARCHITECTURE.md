@@ -26,6 +26,9 @@ Endless flow uses `GameManager.start_endless_mode()` and `scenes/levels/level_en
 | Global state | `scripts/game_manager.gd` | Hero data, run state, signals, scene transitions, save/load |
 | Audio | `scripts/audio_manager.gd` | SFX pool, BGM loop, volume settings |
 | Player | `scripts/player.gd`, `scenes/characters/player.tscn` | Movement, jumps, wall movement, hero abilities, damage/respawn |
+| Combat | `scripts/weapon.gd`, `scripts/bullet.gd`, `scenes/items/bullet.tscn` | Mouse aim, pistol fire cooldown, projectile movement, enemy hits |
+| Enemies | `scripts/enemy.gd`, `scenes/characters/enemy.tscn` | Ground patrol, player contact damage, projectile health |
+| Powerups | `scripts/powerup.gd`, `scenes/items/powerup.tscn` | Health, speed, and temporary invulnerability pickups |
 | Levels | `scenes/levels/`, `scripts/levels/` | Layout, camera, abyss handling, authored/endless generation |
 | Items | `scenes/items/`, `scripts/items/` | Fruit, breakable boxes, checkpoints |
 | Traps | `scenes/traps/`, `scripts/traps/` | Hazard behavior and player damage |
@@ -55,5 +58,5 @@ Progress is serialized as JSON with `max_unlocked_level`, `selected_hero_id`, `r
 - Use `res://` paths and existing resource files rather than embedding duplicate assets.
 - Add input actions through `GameManager._setup_input_actions()` unless the project moves to an explicit Input Map configuration.
 - Play gameplay feedback through `AudioManager.play_sfx()`.
+- Select level-specific music through `AudioManager.play_level_music()`.
 - Use `BaseLevel` for authored levels and `EndlessLevel` for procedural generation.
-

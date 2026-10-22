@@ -71,15 +71,12 @@ func _on_health_changed(current: int, max_hp: int) -> void:
 		c.queue_free()
 	
 	for i in range(max_hp):
-		var heart = TextureRect.new()
+		var heart = Label.new()
 		heart.custom_minimum_size = Vector2(18, 18)
-		heart.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		if i < current:
-			heart.texture = load("res://Items/Fruits/Apple.png")
-			heart.modulate = Color(1.0, 0.25, 0.35)
-		else:
-			heart.texture = load("res://Items/Fruits/Apple.png")
-			heart.modulate = Color(0.3, 0.3, 0.3, 0.4)
+		heart.text = "♥"
+		heart.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		heart.add_theme_font_size_override("font_size", 16)
+		heart.modulate = Color(1.0, 0.25, 0.35) if i < current else Color(0.3, 0.3, 0.3, 0.4)
 		health_container.add_child(heart)
 
 func _on_fruits_changed(collected: int, total: int) -> void:

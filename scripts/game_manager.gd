@@ -136,6 +136,7 @@ func _setup_input_actions() -> void:
 		"move_down": [KEY_S, KEY_DOWN],
 		"jump": [KEY_SPACE, KEY_W, KEY_UP],
 		"special_action": [KEY_SHIFT, KEY_K, KEY_J],
+		"fire": [MOUSE_BUTTON_LEFT],
 		"pause": [KEY_ESCAPE, KEY_P],
 		"restart": [KEY_R]
 	}
@@ -143,8 +144,13 @@ func _setup_input_actions() -> void:
 		if not InputMap.has_action(action_name):
 			InputMap.add_action(action_name)
 		for key in actions[action_name]:
-			var ev = InputEventKey.new()
-			ev.physical_keycode = key
+			var ev: InputEvent
+			if action_name == "fire":
+				ev = InputEventMouseButton.new()
+				ev.button_index = key
+			else:
+				ev = InputEventKey.new()
+				ev.physical_keycode = key
 			InputMap.action_add_event(action_name, ev)
 
 func get_hero_data(hero_id: String = "") -> Dictionary:
