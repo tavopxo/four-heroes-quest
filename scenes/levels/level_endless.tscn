@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" path="res://Background/Purple.png" id="2_purple"]
 [ext_resource type="TileSet" path="res://resources/terrain_tileset.tres" id="3_tileset"]
 [ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="4_player"]
-[ext_resource type="Texture2D" path="res://Items/Fruits/Apple.png" id="5_apple"]
 [ext_resource type="PackedScene" path="res://scenes/ui/pause_menu.tscn" id="6_pause"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_abyss"]
@@ -93,11 +92,11 @@ text = "🏃 0m"
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="FruitIcon" type="TextureRect" parent="EndlessHUD/MarginContainer/TopBar/FruitContainer"]
+[node name="FruitIcon" type="Label" parent="EndlessHUD/MarginContainer/TopBar/FruitContainer"]
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
-texture = ExtResource("5_apple")
-stretch_mode = 5
+text = "✦"
+horizontal_alignment = 1
 
 [node name="FruitLabel" type="Label" parent="EndlessHUD/MarginContainer/TopBar/FruitContainer"]
 layout_mode = 2

@@ -109,7 +109,7 @@ func _process(_delta: float) -> void:
 		
 	# Update camera to follow player smoothly
 	camera.global_position.x = player.global_position.x + 80.0
-	camera.global_position.y = clampf(player.global_position.y - 20.0, 100.0, 220.0)
+	camera.global_position.y = clampf(player.global_position.y - 20.0, 70.0, 300.0)
 	
 	# Keep abyss aligned with player X
 	abyss_zone.global_position.x = player.global_position.x
@@ -203,20 +203,24 @@ func _generate_next_chunk() -> void:
 		9: _build_chunk_pendulum_pass(chunk_data, chunk_w)
 		10: _build_chunk_staggered_gaps(chunk_data, chunk_w)
 		11: _build_chunk_hazard_gauntlet(chunk_data, chunk_w)
+		12: _build_chunk_vertical_ascend(chunk_data, chunk_w)
+		13: _build_chunk_vertical_tower(chunk_data, chunk_w)
+		14: _build_chunk_vertical_descent(chunk_data, chunk_w)
 		_: _build_chunk_flat_sprint(chunk_data, chunk_w)
 		
 	active_chunks.append(chunk_data)
 	next_chunk_tile_x += chunk_w
 
 func _choose_chunk_type() -> int:
-	# Introduce demanding combinations gradually while retaining a safe route.
+	# Endless mode is primarily a vertical platforming climb, with occasional
+	# horizontal hazard sections to vary the rhythm.
 	if current_distance < 60:
-		return [0, 1, 2, 5][randi() % 4]
+		return [1, 2, 12, 12, 13][randi() % 5]
 	if current_distance < 150:
-		return [0, 1, 2, 3, 5, 6, 10][randi() % 7]
+		return [2, 3, 10, 12, 13, 14][randi() % 6]
 	if current_distance < 300:
-		return randi_range(0, 10)
-	return randi_range(0, 11)
+		return [2, 3, 4, 7, 10, 12, 13, 14][randi() % 8]
+	return [2, 3, 4, 7, 8, 10, 11, 12, 13, 14][randi() % 10]
 
 # --- CHUNK BUILDERS ---
 
@@ -238,6 +242,61 @@ func _build_chunk_flat_sprint(chunk: Dictionary, w: int) -> void:
 		_spawn_fruit(chunk, Vector2((next_chunk_tile_x + pit_start - 1 + i * 2) * TILE_SIZE, (entry_y - 2 - (1 if i == 1 else 0)) * TILE_SIZE))
 		
 	last_chunk_exit_y = entry_y
+
+func _build_chunk_vertical_ascend(chunk: Dictionary, w: int) -> void:
+	var entry_y = last_chunk_exit_y
+	var rise = randi_range(5, 8)
+	var platform_count = 5
+	var step_x = max(3, int((w - 6) / platform_count))
+	var platform_y = entry_y
+
+	# Short ledges form a climbable staircase. Each jump is intentionally
+	# within the hero's normal jump height and horizontal reach.
+	for i in range(platform_count):
+		var x = next_chunk_tile_x + 2 + i * step_x
+		platform_y = max(7, entry_y - int((rise * i) / float(platform_count - 1)))
+		_place_platform(chunk, x, platform_y, 4)
+		if i > 0:
+			_spawn_fruit(chunk, Vector2((x + 1) * TILE_SIZE, (platform_y - 2) * TILE_SIZE))
+		if i == 2:
+			_spawn_saw(chunk, Vector2((x + 2) * TILE_SIZE, (platform_y - 2) * TILE_SIZE), Vector2(32, 0), 60.0)
+
+	last_chunk_exit_y = platform_y
+
+func _build_chunk_vertical_tower(chunk: Dictionary, w: int) -> void:
+	var entry_y = last_chunk_exit_y
+	var platform_y = entry_y
+	var platform_count = 6
+	var left_x = next_chunk_tile_x + 2
+	var right_x = next_chunk_tile_x + w - 7
+
+	for i in range(platform_count):
+		var x = left_x if i % 2 == 0 else right_x
+		platform_y = max(6, entry_y - i * 3)
+		_place_platform(chunk, x, platform_y, 5)
+		if i < platform_count - 1:
+			_spawn_fruit(chunk, Vector2((x + 2) * TILE_SIZE, (platform_y - 2) * TILE_SIZE))
+		if i == 2 or i == 4:
+			_spawn_spikes(chunk, Vector2((x + 2) * TILE_SIZE, (platform_y - 1) * TILE_SIZE))
+
+	last_chunk_exit_y = platform_y
+
+func _build_chunk_vertical_descent(chunk: Dictionary, w: int) -> void:
+	var entry_y = last_chunk_exit_y
+	var platform_y = entry_y
+	var platform_count = 5
+	var step_x = max(3, int((w - 6) / platform_count))
+
+	for i in range(platform_count):
+		var x = next_chunk_tile_x + 2 + i * step_x
+		platform_y = min(17, entry_y + int((5 * i) / float(platform_count - 1)))
+		_place_platform(chunk, x, platform_y, 4)
+		if i < platform_count - 1:
+			_spawn_fruit(chunk, Vector2((x + 1) * TILE_SIZE, (platform_y - 2) * TILE_SIZE))
+		if i == 1:
+			_spawn_fan(chunk, Vector2((x + 2) * TILE_SIZE, (platform_y - 1) * TILE_SIZE))
+
+	last_chunk_exit_y = platform_y
 
 func _build_chunk_step_platforms(chunk: Dictionary, w: int) -> void:
 	var entry_y = last_chunk_exit_y
@@ -460,6 +519,11 @@ func _place_column(chunk: Dictionary, tx: int, top_y: int, depth: int) -> void:
 		var atlas = Vector2i(1, 0) if d == 0 else Vector2i(1, 1)
 		tile_map.set_cell(Vector2i(tx, ty), 0, atlas)
 		chunk["tiles"].append(Vector2i(tx, ty))
+
+func _place_platform(chunk: Dictionary, start_x: int, top_y: int, width: int) -> void:
+	for x in range(width):
+		var tx = start_x + x
+		_place_column(chunk, tx, top_y, 2)
 
 func _spawn_fruit(chunk: Dictionary, pos: Vector2) -> void:
 	var fruit_count: int = chunk.get("fruit_count", 0)
