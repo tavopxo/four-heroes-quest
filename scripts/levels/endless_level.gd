@@ -58,6 +58,7 @@ const TILE_SIZE: int = 16
 const BASE_Y: int = 15 # Tile Y for ground level (240px)
 const GENERATE_AHEAD_PX: float = 850.0
 const DESPAWN_BEHIND_PX: float = 650.0
+const MAX_FRUITS_PER_CHUNK: int = 3
 
 var start_x: float = 60.0
 var next_chunk_tile_x: int = 0
@@ -160,8 +161,8 @@ func _build_initial_chunks() -> void:
 	spawned_container.add_child(cp)
 	chunk_data["nodes"].append(cp)
 	
-	# Place a few welcoming fruits
-	for i in range(4):
+	# Place a small, readable introductory collectible line.
+	for i in range(2):
 		_spawn_fruit(chunk_data, Vector2((12 + i * 2) * TILE_SIZE, (BASE_Y - 2) * TILE_SIZE))
 		
 	active_chunks.append(chunk_data)
@@ -169,21 +170,13 @@ func _build_initial_chunks() -> void:
 	last_chunk_exit_y = BASE_Y
 	chunk_counter = 1
 	
-	# Generate 3 initial chunks ahead
-	for i in range(3):
+	# Keep the opening view readable instead of filling it with collectibles.
+	for i in range(1):
 		_generate_next_chunk()
 
 func _generate_next_chunk() -> void:
 	chunk_counter += 1
-	var chunk_type = randi() % 10
-	
-	# Increase difficulty based on distance
-	if current_distance < 60:
-		# Early game: flat, steps, small gaps
-		chunk_type = [0, 1, 2, 5][randi() % 4]
-	elif current_distance < 150:
-		# Mid-early: add saws, fire, trampolines
-		chunk_type = [0, 1, 2, 3, 5, 6][randi() % 6]
+	var chunk_type = _choose_chunk_type()
 	
 	var chunk_w = randi_range(18, 24)
 	var start_px = next_chunk_tile_x * TILE_SIZE
@@ -208,10 +201,22 @@ func _generate_next_chunk() -> void:
 		7: _build_chunk_fan_updraft(chunk_data, chunk_w)
 		8: _build_chunk_slammer_crates(chunk_data, chunk_w)
 		9: _build_chunk_pendulum_pass(chunk_data, chunk_w)
+		10: _build_chunk_staggered_gaps(chunk_data, chunk_w)
+		11: _build_chunk_hazard_gauntlet(chunk_data, chunk_w)
 		_: _build_chunk_flat_sprint(chunk_data, chunk_w)
 		
 	active_chunks.append(chunk_data)
 	next_chunk_tile_x += chunk_w
+
+func _choose_chunk_type() -> int:
+	# Introduce demanding combinations gradually while retaining a safe route.
+	if current_distance < 60:
+		return [0, 1, 2, 5][randi() % 4]
+	if current_distance < 150:
+		return [0, 1, 2, 3, 5, 6, 10][randi() % 7]
+	if current_distance < 300:
+		return randi_range(0, 10)
+	return randi_range(0, 11)
 
 # --- CHUNK BUILDERS ---
 
@@ -411,6 +416,42 @@ func _build_chunk_pendulum_pass(chunk: Dictionary, w: int) -> void:
 	
 	last_chunk_exit_y = entry_y
 
+func _build_chunk_staggered_gaps(chunk: Dictionary, w: int) -> void:
+	var entry_y = last_chunk_exit_y
+	var raised_y = max(entry_y - 2, 11)
+	var gap_start = 4
+
+	for x in range(w):
+		var tx = next_chunk_tile_x + x
+		var in_gap = x >= gap_start and x < w - 3 and (x - gap_start) % 4 >= 2
+		if in_gap:
+			_spawn_spikes(chunk, Vector2(tx * TILE_SIZE + 8, (entry_y + 2) * TILE_SIZE))
+		else:
+			var segment = int((x - gap_start) / 4)
+			var top_y = raised_y if segment % 2 == 0 and x >= gap_start else entry_y
+			_place_column(chunk, tx, top_y, 4)
+			if x > gap_start and x % 4 == 0:
+				_spawn_fruit(chunk, Vector2(tx * TILE_SIZE + 8, (top_y - 2) * TILE_SIZE))
+
+	_spawn_trampoline(chunk, Vector2((next_chunk_tile_x + w - 3) * TILE_SIZE + 8, (entry_y - 1) * TILE_SIZE))
+	last_chunk_exit_y = entry_y
+
+func _build_chunk_hazard_gauntlet(chunk: Dictionary, w: int) -> void:
+	var entry_y = last_chunk_exit_y
+	for x in range(w):
+		var tx = next_chunk_tile_x + x
+		_place_column(chunk, tx, entry_y, 4)
+
+	var hazard_y = (entry_y - 1) * TILE_SIZE + 8
+	_spawn_fire_trap(chunk, Vector2((next_chunk_tile_x + 4) * TILE_SIZE + 8, hazard_y), 1.2, 1.2, false)
+	_spawn_saw(chunk, Vector2((next_chunk_tile_x + 10) * TILE_SIZE + 8, hazard_y - 12), Vector2(48, 0), 85.0)
+	_spawn_fire_trap(chunk, Vector2((next_chunk_tile_x + 16) * TILE_SIZE + 8, hazard_y), 0.8, 1.5, true)
+	_spawn_box(chunk, Vector2((next_chunk_tile_x + 7) * TILE_SIZE + 8, hazard_y))
+	_spawn_box(chunk, Vector2((next_chunk_tile_x + 13) * TILE_SIZE + 8, hazard_y))
+	_spawn_fruit(chunk, Vector2((next_chunk_tile_x + 8) * TILE_SIZE + 8, (entry_y - 3) * TILE_SIZE))
+	_spawn_fruit(chunk, Vector2((next_chunk_tile_x + 14) * TILE_SIZE + 8, (entry_y - 3) * TILE_SIZE))
+	last_chunk_exit_y = entry_y
+
 # --- TILE & OBJECT HELPERS ---
 
 func _place_column(chunk: Dictionary, tx: int, top_y: int, depth: int) -> void:
@@ -421,12 +462,16 @@ func _place_column(chunk: Dictionary, tx: int, top_y: int, depth: int) -> void:
 		chunk["tiles"].append(Vector2i(tx, ty))
 
 func _spawn_fruit(chunk: Dictionary, pos: Vector2) -> void:
+	var fruit_count: int = chunk.get("fruit_count", 0)
+	if fruit_count >= MAX_FRUITS_PER_CHUNK:
+		return
 	var f = fruit_scene.instantiate()
 	f.position = pos
 	var rtype = fruit_types[randi() % fruit_types.size()]
 	f.fruit_type = rtype
 	spawned_container.add_child(f)
 	chunk["nodes"].append(f)
+	chunk["fruit_count"] = fruit_count + 1
 
 func _spawn_box(chunk: Dictionary, pos: Vector2) -> void:
 	var b = box_scene.instantiate()
@@ -523,7 +568,7 @@ func _cleanup_old_chunks() -> void:
 
 func _on_abyss_body_entered(body: Node2D) -> void:
 	if body is Player:
-		(body as Player).take_damage(99)
+		(body as Player).take_damage(99, Vector2.ZERO, true)
 
 func _on_health_changed(current: int, max_hp: int) -> void:
 	if not health_container or not is_inside_tree():
@@ -531,10 +576,11 @@ func _on_health_changed(current: int, max_hp: int) -> void:
 	for c in health_container.get_children():
 		c.queue_free()
 	for i in range(max_hp):
-		var heart = TextureRect.new()
+		var heart = Label.new()
 		heart.custom_minimum_size = Vector2(18, 18)
-		heart.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		heart.texture = load("res://Items/Fruits/Apple.png")
+		heart.text = "♥"
+		heart.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		heart.add_theme_font_size_override("font_size", 16)
 		heart.modulate = Color(1.0, 0.25, 0.35) if i < current else Color(0.3, 0.3, 0.3, 0.4)
 		health_container.add_child(heart)
 

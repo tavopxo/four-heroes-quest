@@ -253,8 +253,8 @@ func bounce(launch_force: float) -> void:
 	coyote_timer.stop()
 	is_ground_pounding = false
 
-func take_damage(amount: int = 1, knockback_dir: Vector2 = Vector2.ZERO) -> void:
-	if is_invulnerable or is_dead:
+func take_damage(amount: int = 1, knockback_dir: Vector2 = Vector2.ZERO, bypass_invulnerability: bool = false) -> void:
+	if (is_invulnerable and not bypass_invulnerability) or is_dead:
 		return
 		
 	var died = false
@@ -288,6 +288,9 @@ func _on_player_died() -> void:
 	velocity = Vector2.ZERO
 	if animated_sprite.sprite_frames.has_animation("desappearing"):
 		animated_sprite.play("desappearing")
+
+	if game_manager and game_manager.is_endless_mode:
+		return
 	
 	await get_tree().create_timer(0.6).timeout
 	var respawn_pt = Vector2.ZERO
